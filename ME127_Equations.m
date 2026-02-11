@@ -1,0 +1,89 @@
+%Potential Givens 
+%{
+Em =            %
+vm =            %
+Vm =            %
+
+Ef =            %
+vf =            %
+Vf =            %
+
+A =             %
+Am =            %
+Af =            %
+e =             %
+C = 
+
+lf_over_df =    %  
+%}
+
+% Fundamental Equations
+%{
+
+% Hook's Law
+of = E*e
+
+%Force Summation
+o1*A = of*Af + om*Am
+
+%}
+
+
+% Plug-n-chuck Equations
+%{
+
+% Calculate E1 (Rule of Mixtures)
+E1 = (Ef * Vf) + (Em * Vm);
+
+% Calculate E2 (Reuss Model)
+E2 = (Ef*Em)/(Vm*Ef + Vf*Em);
+
+% Calculate G12 
+G12 = (Gf*Gm)/(Vm*Gf + Vf*Gm);
+
+% Calculate v12
+v12 = Vf*vf + Vm*vm;
+
+% Unidirectional discontinuous fiber lamina
+E1 = (Em*(1+2*(lf_over_df)*nL*Vf))/(1-nL*Vf)
+E2 = (Em*(1+2*nT*Vf))/(1-nT*Vf)
+G12 = (Gm(1+nG*Vf))/(1-nG*Vf)
+nL = ((Ef/Em)-1)/((Ef/Em)+2*(lf_over_df))
+nT = ((Ef/Em)-1)/((Ef/Em)+2)
+nG = ((Gf/Gm)-1)/((Gf/Gm)+1)
+
+% Halpin-Tsai equations (alternative to unidirectional discontinuous lamina)
+E2 = (Em*(1+C*n*Vf))/(1-n*Vf)
+n = ((Ef/Em)-1)/((Ef/Em)+C)
+
+% Randomly oriented discontinuous fiber lamina
+E_rand = (3/8)*E1 + (5/8)*E2
+G_rand = (1/8)*E1 + (1/4)*E2
+v_rand = (E_rand/(2*G_rand))-1
+
+%}
+
+Em = 3.5;           %
+vm = 0.33;           %
+Vm = 0.6;           %
+
+Ef = 72;           %
+vf = 0.22;           %
+Vf = 0.4;           %
+
+lf_over_df = 10;   %  
+C = 100;
+%{
+nL = ((Ef/Em)-1)/((Ef/Em)+2*(lf_over_df))
+E1 = (Em*(1+2*(lf_over_df)*nL*Vf))/(1-nL*Vf)
+
+nT = ((Ef/Em)-1)/((Ef/Em)+2)
+E2 = (Em*(1+2*nT*Vf))/(1-nT*Vf)
+
+E_rand = (3/8)*E1 + (5/8)*E2
+%}
+
+n = ((Ef/Em)-1)/((Ef/Em)+C)
+E2 = (Em*(1+C*n*Vf))/(1-n*Vf)
+
+E_rand = (3/8)*28.0461 + (5/8)*9.0756
