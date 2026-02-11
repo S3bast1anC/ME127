@@ -2,13 +2,13 @@ Vf = 0 : 0.01 : 1;   % Goes from 0 to 1 in steps of 0.01
 Vm = 1 - Vf;         % Matrix volume fraction
 
 % Givens
-Ef = 380;       % GPa
-Em = 130;      % GPa
+Ef = 72;      % GPa
+Em = 3.5;     % GPa
 
 % Calculate E1 (Rule of Mixtures)
 E1 = (Ef * Vf) + (Em * Vm);
 
-% Calculate E2 (Reuss Model) - use ./ for element-wise division
+% Calculate E2 (Reuss Model)
 E2 = 1./((Vf/Ef)+(Vm/Em));
 
 % --- Plotting ---
