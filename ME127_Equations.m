@@ -23,6 +23,9 @@ lf_over_df =    %
 % Hook's Law
 of = E*e
 
+% Failure Strain
+e = o/E
+
 %Force Summation
 o1*A = of*Af + om*Am
 
@@ -73,6 +76,9 @@ Vf = 0.4;           %
 
 lf_over_df = 10;   %  
 C = 100;
+
+of = 1;
+om = 0.06;
 %{
 nL = ((Ef/Em)-1)/((Ef/Em)+2*(lf_over_df))
 E1 = (Em*(1+2*(lf_over_df)*nL*Vf))/(1-nL*Vf)
@@ -83,7 +89,5 @@ E2 = (Em*(1+2*nT*Vf))/(1-nT*Vf)
 E_rand = (3/8)*E1 + (5/8)*E2
 %}
 
-n = ((Ef/Em)-1)/((Ef/Em)+C);
-E2 = (Em*(1+C*n*Vf))/(1-n*Vf);
-
-E_rand = (3/8)*21.0733 + (5/8)*9.0756
+ef = of/Ef
+em = om/Em
