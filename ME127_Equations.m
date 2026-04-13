@@ -66,28 +66,81 @@ v_rand = (E_rand/(2*G_rand))-1
 
 %}
 
-Em = 3.5;           %
-vm = 0.33;           %
-Vm = 0.6;           %
-
-Ef = 72;           %
-vf = 0.22;           %
-Vf = 0.4;           %
-
-lf_over_df = 10;   %  
-C = 100;
-
-of = 1;
-om = 0.06;
+% Laminate 1
 %{
-nL = ((Ef/Em)-1)/((Ef/Em)+2*(lf_over_df))
-E1 = (Em*(1+2*(lf_over_df)*nL*Vf))/(1-nL*Vf)
 
-nT = ((Ef/Em)-1)/((Ef/Em)+2)
-E2 = (Em*(1+2*nT*Vf))/(1-nT*Vf)
+% Solve Q Matrix
+E1 =
+E2 =
+v12 =
+G12 =
 
-E_rand = (3/8)*E1 + (5/8)*E2
+v21 = E2 * (v12 / E1);
+
+% Calculate the individual elements of the Q matrix
+Q11 = E1 / (1 - (v12 * v21));
+Q22 = E2 / (1 - (v12 * v21));
+Q12 = (v12 * E2) / (1 - (v12 * v21)); 
+Q66 = G12;
+
+Q = [Q11, Q12, 0;
+     Q12, Q22, 0;
+       0,   0, Q66];
+
+disp(Q);
 %}
 
-ef = of/Ef
-em = om/Em
+
+% Laminate 2
+%{
+Q = [ 0, 0, 0; 
+      0, 0, 0; 
+      0, 0, 0 ];
+
+theta_deg = ;
+
+c = cosd(theta_deg);
+s = sind(theta_deg);
+
+T_inv = [  c^2,   s^2, -2*s*c;
+           s^2,   c^2,  2*s*c;
+           s*c,  -s*c, c^2-s^2 ];
+
+T_inv_T = T_inv';
+
+Q_bar = T_inv * Q * T_inv_T;
+
+disp(Q_bar);
+%}
+
+E1 = 138;
+E2 = 9;
+v12 = 0.3;
+G12 = 6.9;
+
+v21 = E2 * (v12 / E1);
+
+% Calculate the individual elements of the Q matrix
+Q11 = E1 / (1 - (v12 * v21));
+Q22 = E2 / (1 - (v12 * v21));
+Q12 = (v12 * E2) / (1 - (v12 * v21)); 
+Q66 = G12;
+
+Q = [Q11, Q12, 0;
+     Q12, Q22, 0;
+       0,   0, Q66];
+%disp(Q);
+
+theta_deg = -45;
+
+c = cosd(theta_deg);
+s = sind(theta_deg);
+
+T_inv = [  c^2,   s^2, -2*s*c;
+           s^2,   c^2,  2*s*c;
+           s*c,  -s*c, c^2-s^2 ];
+
+T_inv_T = T_inv';
+
+Q_bar = T_inv * Q * T_inv_T;
+disp(Q_bar);
